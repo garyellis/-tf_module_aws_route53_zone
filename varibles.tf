@@ -5,6 +5,10 @@ variable "alias_records" {
   # [{ name = "foo", records = ""}]
 }
 
+variable "alias_records_count" {
+  default = "0"
+}
+
 variable "create_zone" {
   description    = "Create the route53 zone"
   type    = "string"
@@ -16,17 +20,14 @@ variable "name" {
   type    = "string"
 }
 
-variable "records" {
+variable "a_records" {
   description = "A list of A record maps"
   type    = "list"
   default = []
-  # [{ name = "foo", 
 }
 
-variable "records_ttl" {
-  default = "Set ttl for A records. (this might move into a records variable"
-  type    = "string"
-  default = "300"
+variable "a_records_count" {
+  default = "0"
 }
 
 variable "tags" {

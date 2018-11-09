@@ -25,16 +25,16 @@ resource "aws_route53_zone_association" "zone" {
 }
 
 resource "aws_route53_record" "a_record" {
-  count   = "${length(var.records)}"
+  count   = "${var.a_records_count}"
   zone_id = "${local.zone_id}"
   type    = "A"
-  ttl     = "${var.records_ttl}"
-  name    = "${lookup(var.records[count.index], "name")}"
-  records = ["${split(",", lookup(var.records[count.index], "record"))}"]
+  ttl     = "${lookup(var.a_records[count.index], "ttl")}"
+  name    = "${lookup(var.a_records[count.index], "name")}"
+  records = ["${split(",", lookup(var.a_records[count.index], "record"))}"]
 }
 
 resource "aws_route53_record" "alias_record" {
-  count   = "${length(var.alias_records)}"
+  count    = "${var.alias_records_count}"
   zone_id = "${local.zone_id}"
   type    = "A"
   name    = "${lookup(var.alias_records[count.index], "name")}"
