@@ -15,11 +15,19 @@ resource "aws_route53_zone" "private_zone" {
 
   name = var.name
   tags = merge(var.tags, map("Name", format("%s", var.name)))
-  vpc_id = var.vpc_id
+  vpc {
+    vpc_id = var.vpc_id
+  }
 }
 
 locals {
   zone_id = var.create_zone ? join("", aws_route53_zone.public_zone.*.id, aws_route53_zone.private_zone.*.id) : join("", list(var.zone_id), data.aws_route53_zone.current.*.zone_id)
+}
+
+resource "aws_route53_zone_association" "zone" {
+  count   = var.vpc_zone_associations_count
+  zone_id = local.zone_id
+  vpc_id  = element(var.vpc_zone_associations, count.index)
 }
 
 resource "aws_route53_record" "ns_record" {
@@ -27,16 +35,10 @@ resource "aws_route53_record" "ns_record" {
   zone_id = local.zone_id
   name    = lookup(var.ns_records[count.index], "name")
   type    = "NS"
-  ttl     = "30"
+  ttl     = "3600"
   records = split(",", lookup(var.ns_records[count.index], "record"))
 }
 
-
-resource "aws_route53_zone_association" "zone" {
-  count   = var.vpc_zone_associations_count
-  zone_id = local.zone_id
-  vpc_id  = element(var.vpc_zone_associations, count.index)
-}
 
 resource "aws_route53_record" "a_record" {
   count   = var.a_records_count
