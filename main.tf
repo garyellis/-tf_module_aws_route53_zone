@@ -44,7 +44,7 @@ resource "aws_route53_record" "a_record" {
   count   = var.a_records_count
   zone_id = local.zone_id
   type    = "A"
-  ttl     = lookup(var.a_records[count.index], "ttl")
+  ttl     = lookup(var.a_records[count.index], "ttl", "60")
   name    = lookup(var.a_records[count.index], "name")
   records = split(",", lookup(var.a_records[count.index], "record"))
 }
