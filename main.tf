@@ -4,14 +4,14 @@ data "aws_route53_zone" "current" {
 }
 
 resource "aws_route53_zone" "public_zone" {
-  count = var.create_zone && var.vpc_id == "" ? 1 : 0
+  count = var.create_zone && !var.private_zone ? 1 : 0
 
   name = var.name
   tags = merge(var.tags, map("Name", format("%s", var.name)))
 }
 
 resource "aws_route53_zone" "private_zone" {
-  count = var.create_zone && var.vpc_id != "" ? 1 : 0
+  count = var.create_zone && var.private_zone ? 1 : 0
 
   name = var.name
   tags = merge(var.tags, map("Name", format("%s", var.name)))

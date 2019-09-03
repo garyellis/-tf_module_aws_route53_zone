@@ -77,6 +77,7 @@ module "external_lb" {
 module "subdomain" {
   source = "../"
   create_zone         = true
+  private_zone        = false
   name                = var.subdomain
   alias_records       = [{ name = "tfmod-route53", aws_dns_name = module.external_lb.lb_dns_name, zone_id = module.external_lb.lb_zone_id, evaluate_target_health = "true"}]
   alias_records_count = 1
@@ -116,6 +117,7 @@ module "internal_lb" {
 module "subdomain-internal" {
   source = "../"
   create_zone         = true
+  private_zone        = true
   name                = var.subdomain
   alias_records       = [{ name = "tfmod-route53", aws_dns_name = module.internal_lb.lb_dns_name, zone_id = module.internal_lb.lb_zone_id, evaluate_target_health = "true"}]
   alias_records_count = 1

@@ -21,6 +21,7 @@ This module supports the following use cases:
 | ns\_records | A list of ns record maps | `list(map(string)` | `[]` | no |
 | ns\_records\_count | The number of ns items in `ns_records` list | `number` | `0` | no |
 | name | The zone name | `string` | n/a | yes |
+| private\_zone | True when creating a private hosted zone | `bool` | `true` | no |
 | tags | A map of tags applied when creating the route53 zone | `map(string)` | `{}` | no |
 | vpc\_id | Required to create a private hosted zone | `string` | `""` | no |
 | vpc\_zone\_associations | A list of additional vpcs to associate to the private hosted zone | `list(string)` | `[]` | no |

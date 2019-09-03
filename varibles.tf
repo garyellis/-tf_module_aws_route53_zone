@@ -16,6 +16,12 @@ variable "create_zone" {
   default = false
 }
 
+variable "private_zone" {
+  description = "Is a private hosted zone"
+  type = bool
+  default = true
+}
+
 variable "name" {
   description = "The zone name"
   type = string
