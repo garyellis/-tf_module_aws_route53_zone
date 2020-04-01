@@ -1,10 +1,12 @@
 data "aws_route53_zone" "current" {
   count = var.use_zone_datasource ? 1 : 0
-  name = format("%s.", var.name)
+
+  name         = format("%s.", var.name)
+  private_zone = var.private_zone
 }
 
 resource "aws_route53_zone" "public_zone" {
-  count = var.create_zone && !var.private_zone ? 1 : 0
+  count = var.create_zone && ! var.private_zone ? 1 : 0
 
   name = var.name
   tags = merge(var.tags, map("Name", format("%s", var.name)))
