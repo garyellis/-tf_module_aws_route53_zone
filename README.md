@@ -30,7 +30,7 @@ This module supports the following use cases:
 | private\_zone | Is a private hosted zone | `bool` | `true` | no |
 | tags | A map of tags applied when creating the route53 zone | `map(string)` | `{}` | no |
 | use\_zone\_datasource | enable datasource lookup on zone name | `bool` | `false` | no |
-| vpc\_id | Required to create a private hosted zone | `string` | `""` | no |
+| vpc\_id | Required to create a private hosted zone or look it up | `string` | `""` | no |
 | vpc\_zone\_associations | A list of vpcs to associate to the zone | `list(string)` | `[]` | no |
 | vpc\_zone\_associations\_count | Associate additional vpcs to the private hosted zone | `number` | `0` | no |
 | zone\_id | The private hosted zone id | `string` | `""` | no |
