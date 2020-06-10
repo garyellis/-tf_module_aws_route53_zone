@@ -61,7 +61,7 @@ variable "tags" {
 }
 
 variable "vpc_id" {
-  description = "Required to create a private hosted zone"
+  description = "Required to create a private hosted zone or look it up"
   type        = string
   default     = ""
 }

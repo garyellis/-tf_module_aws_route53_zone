@@ -3,6 +3,7 @@ data "aws_route53_zone" "current" {
 
   name         = format("%s.", var.name)
   private_zone = var.private_zone
+  vpc_id       = var.vpc_id
 }
 
 resource "aws_route53_zone" "public_zone" {
